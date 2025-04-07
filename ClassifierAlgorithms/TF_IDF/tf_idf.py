@@ -8,6 +8,8 @@ import numpy as np
 import pandas as pd
 import seaborn as sns
 
+pd.set_option('display.max_rows', None) 
+
 path = "/home/beckerpedro/Documentos/Ceos/ClassifierAlgorithms/DOMExtractor/textos_licitacoes.txt"
 
 #retorna lista de documentos(texto da publicacao tokenizado)
@@ -35,6 +37,8 @@ def tokenize(text: str) -> List[str]:
     
     # Divide o texto limpo em tokens
     tokens = cleaned_text.lower().split()
+
+    #filtra por palavras sem valor como numeros
     return tokens
 
 
@@ -79,14 +83,8 @@ def calculate_tfidf(tf_dict: Dict[str, float], idf_dict: Dict[str, float]) -> Di
     
     return tfidf_dict
 
-
-def visualize_tfidf(tfidf_matrix: pd.DataFrame):
-    """Visualize the TF-IDF matrix using a heatmap."""
-    plt.figure(figsize=(10, 10))
-    sns.heatmap(tfidf_matrix, annot=True, cmap="YlGnBu")
-    plt.xticks(rotation=45, ha="right")
-    plt.tight_layout()
-    plt.show()
+def test_acurracy(tfidfs):
+    return
 
 
 def main():
@@ -105,9 +103,9 @@ def main():
         tfidfs.append(tfidf_dict)
         
     tfidf_matrix = pd.DataFrame(tfidfs).T
-    print(tfidf_matrix)
-    visualize_tfidf(tfidf_matrix) 
-    
+    #print(tfidf_matrix)
+
+        
     
 if __name__ == "__main__":
     main()

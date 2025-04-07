@@ -13,7 +13,7 @@ def new_step(text):
 
 # coletando informacao
 new_step("coletando informação...")
-data = pd.read_csv(r"C:\Users\teodo\OneDrive\Documentos\Ceos\P2\ClassifierAlgorithms\GenericDatasets\breast_cancer_data.csv")
+data = pd.read_csv(r"/home/beckerpedro/Documentos/Ceos/ClassifierAlgorithms/GenericDatasets/breast_cancer_data.csv")
 
 # ajuste para todas colunas serem exibidas
 pd.options.display.max_columns = 6
