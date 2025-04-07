@@ -102,6 +102,7 @@ def main():
         tfidf_dict = calculate_tfidf(tf_dict, idf_dict)
         tfidfs.append(tfidf_dict)
         
+    print(tfidfs)   
     tfidf_matrix = pd.DataFrame(tfidfs).T
     #print(tfidf_matrix)
 
