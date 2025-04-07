@@ -7,8 +7,25 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import seaborn as sns
-#from sklearn.feature_extraction.text import TfidfVectorizer -> alternativa para simplificacao
-    
+
+path = "/home/beckerpedro/Documentos/Ceos/ClassifierAlgorithms/DOMExtractor/textos_licitacoes.txt"
+
+#retorna lista de documentos(texto da publicacao tokenizado)
+def data_to_documents_list(path):
+    docs = []
+    with open(path, "r") as a:
+        for linha in a:
+            linha = linha.strip()
+            if linha != "0" and linha != "1" and linha != "---":
+                docs.append(tokenize(linha))
+    return docs   
+
+#retorna lista de dicionarios com contagem(value) de cada palavra(key) de cada documento
+def docs_process(docs): 
+    documents_word_counts = []
+    for doc in docs:
+        documents_word_counts.append(calculate_word_frequencies(doc))
+    return documents_word_counts
     
 def tokenize(text: str) -> List[str]:
     ''' Divide o texto em palavras singulares (tokens) '''
@@ -74,17 +91,12 @@ def visualize_tfidf(tfidf_matrix: pd.DataFrame):
 
 def main():
     
-    sentences = ["Life, if well lived, is long enough.",
-                 "Your time is limited, so don't waste it living someone else's life."]
+    documents = data_to_documents_list(path) #lista com listas de tokens
     
-    documents = [tokenize(sentence) for sentence in sentences]
-    #print(documents)
+    documents_word_counts = docs_process(documents) #lista de dicionarios
     
-    documents_word_counts = [calculate_word_frequencies(doc) for doc in documents]
-    #print(documents_word_counts)
-    
-    idf_dict = calculate_idf(documents_word_counts)
-    #print(idf_dict)
+    idf_dict = calculate_idf(documents_word_counts) #dicionario
+    print(idf_dict)
 
     tfidfs = []
     for doc, doc_word_counts in zip(documents, documents_word_counts):
@@ -92,7 +104,7 @@ def main():
         tfidf_dict = calculate_tfidf(tf_dict, idf_dict)
         tfidfs.append(tfidf_dict)
         
-    tfidf_matrix = pd.DataFrame(tfidfs, index=["Document A", "Document B"]).T
+    tfidf_matrix = pd.DataFrame(tfidfs).T
     print(tfidf_matrix)
     visualize_tfidf(tfidf_matrix) 
     

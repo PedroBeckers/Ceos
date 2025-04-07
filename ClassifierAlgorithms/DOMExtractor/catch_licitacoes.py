@@ -6,6 +6,7 @@ import re
 import html
 
 #python nao reconhece modulo TF_IDF -> adicionar pythonpath manualmente no terminal
+#PYTHONPATH=$PYTHONPATH:/home/beckerpedro/Documentos/Ceos/ClassifierAlgorithms python3 catch_licitacoes.py
 from TF_IDF.tf_idf import tokenize
 
 # Caminho da pasta de downloads
@@ -123,9 +124,10 @@ def process_zip_files():
                                 
             else:
                 text_sum += traverse_json_files(os.path.splitext(processing_path)[0])
+
+            if text_sum >= 50:
+                return text_sum
             
-        if text_sum >= 500:
-            return text_sum
                     
 # Iterar sobre todos json, tanto os extraidos de um zip, quanto os que nao foram extraidos             
 def traverse_json_files(path):
@@ -146,11 +148,4 @@ if __name__ == "__main__":
     n = process_zip_files()
     print(f"\nProcessamento concluído. {n} textos foram gravados.")
     
-    
-    
-    
-    
-    
-    
-    
-    
+#166 textos gravados, minimo maior que 80
