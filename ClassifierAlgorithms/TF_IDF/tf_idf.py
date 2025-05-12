@@ -103,10 +103,6 @@ def main():
         tfidfs.append(tfidf_dict)
         
     print(tfidfs)   
-    tfidf_matrix = pd.DataFrame(tfidfs).T
-    #print(tfidf_matrix)
-
-        
     
 if __name__ == "__main__":
     main()

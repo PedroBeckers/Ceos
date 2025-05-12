@@ -95,7 +95,7 @@ def classify_by_title(tokens):
                 return "1"
     return "0"
 
-# Função principal para processar os arquivos ZIP
+# Função principal para processar os arquivos ZIP. Retorna quantidade de textos
 def process_zip_files():
     
     text_sum = 0
@@ -145,7 +145,7 @@ def traverse_json_files(path):
     return text_sum
                                 
 if __name__ == "__main__":
-    n = process_zip_files()
-    print(f"\nProcessamento concluído. {n} textos foram gravados.")
+    #n = process_zip_files()
+    #print(f"\nProcessamento concluído. {n} textos foram gravados.")
     
 #166 textos gravados, minimo maior que 80
