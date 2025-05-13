@@ -1,10 +1,12 @@
 """ Modelo: https://github.com/AssemblyAI-Community/Machine-Learning-From-Scratch/tree/main/05%20Random%20Forests """
 
+# Esse arquivo testa a Random Forest com os datasets genericos. Não deve ser levado em conta
+
 import pandas as pd
 
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
-from RandomForest import randomforest
+from randomforest import RandomForest
 
 def new_step(text):
     print("\n" + "*" * (len(text) + 4))
@@ -13,7 +15,7 @@ def new_step(text):
 
 # coletando informacao
 new_step("coletando informação...")
-data = pd.read_csv(r"/home/beckerpedro/Documentos/Ceos/ClassifierAlgorithms/GenericDatasets/breast_cancer_data.csv")
+data = pd.read_csv(r"./GenericDatasets/breast_cancer_data.csv")
 
 # ajuste para todas colunas serem exibidas
 pd.options.display.max_columns = 6
@@ -33,7 +35,7 @@ print("informação dividida com sucesso!")
 
 # criando a arvore a partir da informacao dada
 new_step("criando a árvore de decisão a partir da informação de treino...")
-classifier = randomforest.RandomForest(n_trees=10, max_depth=2, min_samples_split=3)
+classifier = RandomForest(n_trees=10, max_depth=2, min_samples_split=3)
 classifier.fit(X_train,Y_train)
 classifier.print_trees()
 print("\nárvore de decisão criada com sucesso!")

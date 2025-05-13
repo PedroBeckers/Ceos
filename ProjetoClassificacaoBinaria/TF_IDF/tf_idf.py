@@ -8,7 +8,10 @@ import pandas as pd
 
 pd.set_option('display.max_rows', None) 
 
-path = "/home/beckerpedro/Documentos/Ceos/ClassifierAlgorithms/Extractor/dataset/dataset_96_100.txt"
+path = "/home/beckerpedro/Documentos/Ceos/ProjetoClassificacaoBinaria/Extractor/dataset/dataset_96_100.txt"
+
+def import_test():
+    print("Importação de pacote concluída")
 
 # Retorna lista de documentos (texto de cada publicacao tokenizado)
 def data_to_documents_list(path):
@@ -86,9 +89,6 @@ def calculate_tfidf(tf_dict: Dict[str, float], idf_dict: Dict[str, float]) -> Di
     tfidf_dict = {word: tf_val * idf_dict[word] for word, tf_val in tf_dict.items()}
     
     return tfidf_dict
-
-def test_acurracy(tfidfs):
-    return
 
 
 def main():
