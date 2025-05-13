@@ -3,37 +3,41 @@
 import re
 from typing import Dict, List
 
-import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-import seaborn as sns
 
 pd.set_option('display.max_rows', None) 
 
-path = "/home/beckerpedro/Documentos/Ceos/ClassifierAlgorithms/DOMExtractor/textos_licitacoes.txt"
+path = "/home/beckerpedro/Documentos/Ceos/ClassifierAlgorithms/Extractor/dataset/dataset_96_100.txt"
 
-#retorna lista de documentos(texto da publicacao tokenizado)
+# Retorna lista de documentos (texto de cada publicacao tokenizado)
 def data_to_documents_list(path):
     docs = []
-    with open(path, "r") as a:
-        for linha in a:
-            linha = linha.strip()
-            if linha != "0" and linha != "1" and linha != "---":
-                docs.append(tokenize(linha))
-    return docs   
+    with open(path, "r") as file:
+        linha = file.readline() # linha recebe uma linha de classificação
+        linha = file.readline() # linha recebe um texto
+        while linha != "":
+            docs.append(tokenize(linha))
+            for _ in range(3):
+                linha = file.readline() # pula para próximo texto
+    return docs
 
-#retorna lista de dicionarios com contagem(value) de cada palavra(key) de cada documento
+# Retorna lista de dicionários com contagem (value) de cada palavra (key) de cada documento
 def docs_process(docs): 
     documents_word_counts = []
     for doc in docs:
         documents_word_counts.append(calculate_word_frequencies(doc))
     return documents_word_counts
-    
+
+# Retorna texto tokenizado  
 def tokenize(text: str) -> List[str]:
     ''' Divide o texto em palavras singulares (tokens) '''
     
+    # Remove espaços desnecessários
+    cleaned_text = text.strip()
+
     # Remove pontuacao 
-    cleaned_text = re.sub(r"[^\w\s]", "", text)
+    cleaned_text = re.sub(r"[^\w\s]", "", cleaned_text)
     
     # Divide o texto limpo em tokens
     tokens = cleaned_text.lower().split()
@@ -41,9 +45,9 @@ def tokenize(text: str) -> List[str]:
     #filtra por palavras sem valor como numeros
     return tokens
 
-
+# Retorna dicionário com
 def calculate_word_frequencies(document: List[str]) -> Dict[str, int]:
-    ''' Calcula a frequencia de cada palavra em um documento '''
+    ''' Calcula a frequência de cada palavra em um documento '''
     
     frequencies = {}
     for word in document:
@@ -53,7 +57,7 @@ def calculate_word_frequencies(document: List[str]) -> Dict[str, int]:
 
 
 def calculate_tf(word_counts: Dict[str, int], document_length: int) -> Dict[str, float]:
-    '''  Calcula a frequencia de termos de cada palavra em um documento  '''
+    '''  Calcula a frequência de termos de cada palavra em um documento  '''
     
     tf_dict = {word: count / float(document_length) for word, count in word_counts.items()}
     
@@ -89,12 +93,11 @@ def test_acurracy(tfidfs):
 
 def main():
     
-    documents = data_to_documents_list(path) #lista com listas de tokens
+    documents = data_to_documents_list(path)        # lista com listas de tokens
     
-    documents_word_counts = docs_process(documents) #lista de dicionarios
+    documents_word_counts = docs_process(documents) # lista de dicionarios com frequencia de cada palavra
     
-    idf_dict = calculate_idf(documents_word_counts) #dicionario
-    print(idf_dict)
+    idf_dict = calculate_idf(documents_word_counts) # dicionario
 
     tfidfs = []
     for doc, doc_word_counts in zip(documents, documents_word_counts):
