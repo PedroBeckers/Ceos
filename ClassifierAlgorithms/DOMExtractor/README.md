@@ -1,0 +1,1 @@
+Pasta DOMExtractor é uma parte um projeto de outro aluno, que foi reutilizada inicialmente nesse projeto. Modifiquei e adicionei algumas partes. Porém acabou por não ser utilizado.

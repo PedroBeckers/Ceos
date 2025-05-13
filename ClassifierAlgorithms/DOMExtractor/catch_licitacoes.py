@@ -144,8 +144,7 @@ def traverse_json_files(path):
     
     return text_sum
                                 
-if __name__ == "__main__":
+#if __name__ == "__main__":
     #n = process_zip_files()
     #print(f"\nProcessamento concluído. {n} textos foram gravados.")
-    
-#166 textos gravados, minimo maior que 80
+    #166 textos gravados, minimo maior que 80
