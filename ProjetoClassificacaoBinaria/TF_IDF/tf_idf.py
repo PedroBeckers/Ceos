@@ -8,10 +8,7 @@ import pandas as pd
 
 pd.set_option('display.max_rows', None) 
 
-path = "/home/beckerpedro/Documentos/Ceos/ProjetoClassificacaoBinaria/Extractor/dataset/dataset_96_100.txt"
-
-def import_test():
-    print("Importação de pacote concluída")
+path = "/home/beckerpedro/Documentos/Ceos/ProjetoClassificacaoBinaria/Extractor/dataset/dataset_79_100.txt"
 
 # Retorna lista de documentos (texto de cada publicacao tokenizado)
 def data_to_documents_list(path):
@@ -104,8 +101,8 @@ def main():
         tf_dict = calculate_tf(doc_word_counts, len(doc))
         tfidf_dict = calculate_tfidf(tf_dict, idf_dict)
         tfidfs.append(tfidf_dict)
-        
-    print(tfidfs)   
+
+    return tfidfs
     
 if __name__ == "__main__":
     main()

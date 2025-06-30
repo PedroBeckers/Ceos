@@ -1,5 +1,5 @@
 import numpy as np
-from node import Node
+from .node import Node
 
 class DecisionTreeClassifier():
     def __init__(self, min_samples_split=2, max_depth=4, n_features=None, feat_idxs=None):

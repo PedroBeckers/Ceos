@@ -1,10 +1,42 @@
-from tree import DecisionTreeClassifier
+from .tree import DecisionTreeClassifier
 from collections import Counter
+
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score
+
 import numpy as np
+import pandas as pd
+
+def execute_model(data):
+
+    print("\niniciando execução do modelo...\n")
+
+    # divisao treino-teste (20% teste e 80% treino)
+    print("dividindo informação entre treino e teste de predição...")
+    X = data.iloc[:, :-1].values
+    Y = data.iloc[:, -1].values.reshape(-1,1)
+    X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=.2, random_state=3)
+    print("informação dividida com sucesso!")
+
+    # criando a arvore a partir da informacao dada
+    print("\ncriando as árvores de decisão a partir da informação de treino...")
+    classifier = RandomForest(n_trees=5, max_depth=4, min_samples_split=3)
+    classifier.fit(X_train,Y_train)
+    classifier.print_trees()
+    print("\nrandom forest criada com sucesso!\n")
+
+    # testando a precisao da arvore criada
+    print("testando a precisão de predição da floresta criada...\n")
+    Y_pred = classifier.predict(X_test)
+    print("teste realizado com sucesso!")
+    print("Precisão: " + str(accuracy_score(Y_test, Y_pred)))
+    print("\nfinalizando execução...\n")
+    
+    return
 
 class RandomForest():
     
-    def __init__(self, n_trees=10, max_depth=2, min_samples_split=3, total_features=None):
+    def __init__(self, n_trees=5, max_depth=5, min_samples_split=3, total_features=None):
         self.n_trees = n_trees
         self.max_depth = max_depth
         self.min_samples_split = min_samples_split
